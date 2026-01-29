@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>DMT | Music</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: '#d4af37'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-neutral-900 text-neutral-100 min-h-screen">
+
+<header class="border-b border-neutral-700 p-4 flex items-center justify-between">
+  <h1 class="text-2xl font-bold text-gold">🎵 DMT | Music</h1>
+</header>
+
+<main class="p-6 grid grid-cols-12 gap-6">
+
+  <section class="col-span-3 bg-neutral-800 rounded-xl p-4 shadow-lg flex flex-col gap-4">
+    <h2 class="text-lg font-semibold text-gold">Music</h2>
+
+    <iframe
+      id="music-player"
+      class="w-full aspect-video bg-black rounded-lg"
+      src=""
+      allow="autoplay"
+      allowfullscreen
+    ></iframe>
+
+    <div class="grid grid-cols-2 gap-2">
+      <button onclick="loadPlaylist('city')" class="bg-neutral-700 hover:bg-neutral-600 rounded py-1 text-sm">
+        Ciudad
+      </button>
+      <button onclick="loadPlaylist('combat')" class="bg-neutral-700 hover:bg-neutral-600 rounded py-1 text-sm">
+        Combate
+      </button>
+      <button onclick="loadPlaylist('tavern')" class="bg-neutral-700 hover:bg-neutral-600 rounded py-1 text-sm">
+        Taberna
+      </button>
+    </div>
+  </section>
+
+</main>
+
+<script>
+async function loadPlaylist(key) {
+  const res = await fetch("/api/playlists");
+  const playlists = await res.json();
+
+  const player = document.getElementById("music-player");
+  player.src = playlists[key].url + "&autoplay=1&loop=1&controls=0";
+}
+</script>
+
+</body>
+</html>
