@@ -69,6 +69,22 @@ async function loadPlaylist(key) {
     .then(res => res.text())
     .then(html => {
       document.getElementById("navbar").innerHTML = html;
+
+      const currentPath = window.location.pathname;
+      const links = document.querySelectorAll("[data-nav]");
+
+      links.forEach(link => {
+        if (link.getAttribute("href") === currentPath) {
+          link.classList.remove("text-neutral-300");
+          link.classList.add(
+            "text-gold",
+            "font-semibold",
+            "border-b-2",
+            "border-gold",
+            "pb-1"
+          );
+        }
+      });
     });
 </script>
 
