@@ -1,19 +1,8 @@
-Write-Host "🧙 Iniciando DM Tool..." -ForegroundColor Cyan
+Write-Host "🧙 Iniciando DM Tool"
 
-# ===== Backend =====
-Write-Host "🔮 Iniciando backend..." -ForegroundColor Yellow
-Start-Process powershell -ArgumentList `
-  "-NoExit", `
-  "-Command", `
-  "cd backend; node server.js"
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "python -m uvicorn backend.main:app --reload"
 
-# ===== Frontend =====
-Write-Host "🗺️ Iniciando frontend..." -ForegroundColor Green
-Start-Process powershell -ArgumentList `
-  "-NoExit", `
-  "-Command", `
-  "cd frontend; python -m http.server 5500"
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd backend; node server.js"
 
-Write-Host "✅ Todo iniciado" -ForegroundColor Cyan
-Write-Host "Frontend: http://localhost:5500/tracker.html"
-Write-Host "Backend:  http://localhost:3001"
+Write-Host "Frontend: http://localhost:8000/tracker.html"
+Write-Host "Backend: http://localhost:3001"
