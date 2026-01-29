@@ -152,11 +152,26 @@
          <section class="bg-gray-800 p-4 rounded-xl lg:col-span-2 overflow-x-auto">
             <div class="flex justify-between items-center mb-2">
                <h2 class="text-lg font-bold">Combat Tracker</h2>
-               <button onclick="saveTracker()" 
-               class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 
-               focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
-                Guardar
-              </button>
+               
+                 <button onclick="saveTracker()"
+                  class="text-white bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-700
+                  hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-emerald-300
+                  font-medium rounded-xl text-sm px-4 py-2.5">
+                  Guardar
+                 </button>
+
+                <button onclick="newTracker()"
+                  class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 
+                  focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-4 py-2.5 text-center leading-5">
+                  Nuevo Tracker
+                </button>
+
+                <select id="trackerSelect"
+                  onchange="loadTracker(this.value)"
+                  class="bg-gray-900 border border-gray-600 rounded-lg px-2 py-2 text-sm">
+                  <option value="">Cargar tracker...</option>
+                </select>
+               
                <button onclick="addRound()" type="button" 
                   class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 
                   focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
@@ -513,6 +528,136 @@
            table.insertAdjacentHTML("beforeend", createExtraRow(colCount));
          }
       </script>
+      <script>
+function serializeTracker() {
+  const tracker = {
+    rounds: [],
+    rows: []
+  };
+
+  // headers
+  document.querySelectorAll("#trackerTable thead th").forEach(th => {
+    tracker.rounds.push(th.innerText.trim());
+  });
+
+  // filas
+  document.querySelectorAll("#trackerTable tbody tr").forEach(tr => {
+    const row = [];
+    tr.querySelectorAll("td").forEach(td => {
+      row.push({
+        text: td.innerText,
+        log: td.dataset.log || null
+      });
+    });
+    tracker.rows.push(row);
+  });
+
+  return tracker;
+}
+</script>
+<script>
+async function saveTracker() {
+  const data = serializeTracker();
+
+  // 🆕 crear tracker si no existe
+  if (!currentTrackerId) {
+    const createRes = await fetch("http://localhost:3001/api/tracker/new", {
+      method: "POST"
+    });
+
+    const createJson = await createRes.json();
+    currentTrackerId = createJson.id;
+  }
+
+  // 💾 guardar tracker existente
+  const res = await fetch(
+    `http://localhost:3001/api/tracker/${currentTrackerId}/save`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        tracker: data
+      })
+    }
+  );
+
+  const json = await res.json();
+
+  if (json.success) {
+    alert(`✅ Tracker ${currentTrackerId} guardado`);
+    loadTrackerList();
+  }
+}
+</script>
+<script>
+function newTracker() {
+  if (!confirm("¿Seguro? Se perderán los cambios no guardados.")) return;
+
+  currentTrackerId = null; // 👈 CLAVE
+
+  document.querySelector("#trackerTable tbody").innerHTML = "";
+  document.querySelector("#trackerTable thead tr").innerHTML = `
+    <th>Personaje</th>
+    <th>Daño</th>
+    <th>Condición</th>
+    <th>Ronda 1</th>
+  `;
+
+  roundCount = 1;
+}
+</script>
+<script>
+async function loadTrackerList() {
+  const res = await fetch("http://localhost:3001/api/tracker/list");
+  const trackers = await res.json();
+
+  const select = document.getElementById("trackerSelect");
+  select.innerHTML = `<option value="">📂 Cargar tracker...</option>`;
+
+  trackers.forEach(t => {
+    const opt = document.createElement("option");
+    opt.value = t.id;
+    opt.innerText = `Tracker ${t.id} — ${new Date(t.savedAt).toLocaleString()}`;
+    select.appendChild(opt);
+  });
+}
+
+loadTrackerList();
+</script>
+<script>
+async function loadTracker(id) {
+  if (!id) return;
+
+  const res = await fetch(`http://localhost:3001/api/tracker/${id}`);
+  const json = await res.json();
+
+  const table = document.querySelector("#trackerTable");
+  const thead = table.querySelector("thead tr");
+  const tbody = table.querySelector("tbody");
+
+  thead.innerHTML = "";
+  tbody.innerHTML = "";
+
+  json.tracker.rounds.forEach(r => {
+    const th = document.createElement("th");
+    th.innerText = r;
+    thead.appendChild(th);
+  });
+
+  json.tracker.rows.forEach(row => {
+    const tr = document.createElement("tr");
+    row.forEach(cell => {
+      const td = document.createElement("td");
+      td.contentEditable = true;
+      td.innerText = cell.text;
+      if (cell.log) td.dataset.log = cell.log;
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+}
+</script>
+
       <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
    </body>
 </html>
