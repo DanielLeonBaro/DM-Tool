@@ -15,7 +15,7 @@
            }
          }
       </script>
-<link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+      <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
       <style>
          .party-primary {
          background-color: #2563eb;
@@ -59,77 +59,75 @@
          <section class="bg-gray-800 p-4 rounded-xl">
             <h2 class="text-lg font-bold mb-2">Initiative</h2>
             <div class="flex gap-2">
-              <button onclick="addInitiativeRow()" type="button" 
-              class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 
-              focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
-                🡇 Fila
-              </button>
+               <button onclick="addInitiativeRow()" type="button" 
+                  class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 
+                  focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
+               🡇 Fila
+               </button>
                <button onclick="sendToTracker()" type="button" 
-               class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 
-               focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
-                Tracker 🡆
-              </button>
-
+                  class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 
+                  focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
+               Tracker 🡆
+               </button>
             </div>
             <div class="mt-3 flex flex-wrap gap-2">
-              <button onclick="addPartyMember('Party')" type="button" 
-              class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 
-              focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
-                Party
-              </button>
-              <button onclick="addPartyMember('Kora')" type="button" 
-              class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 
-              focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
-                Kora
-              </button>
-              <button onclick="addPartyMember('Nharavi')" type="button" 
-              class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 
-              focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
-                Nharavi
-              </button>
-              <button onclick="addPartyMember('Opal')" type="button" 
-              class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 
-              focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
-                Opal
-              </button>
-              <button onclick="addPartyMember('Scylla')" type="button" 
-              class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 
-              focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
-                Scylla
-              </button>
-              <button onclick="addPartyMember('Zion')" type="button" 
-              class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 
-              focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
-                Zion
-              </button>
-              <button onclick="addPartyMember('Zuriel')" type="button" 
-              class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 
-              focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
-                Zuriel
-              </button>
-              <button onclick="addPartyMember('Ethris')" type="button" 
-              class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 
-              focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
-                Ethris
-              </button>
+               <button onclick="addPartyMember('Party')" type="button" 
+                  class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 
+                  focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
+               Party
+               </button>
+               <button onclick="addPartyMember('Kora')" type="button" 
+                  class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 
+                  focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
+               Kora
+               </button>
+               <button onclick="addPartyMember('Nharavi')" type="button" 
+                  class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 
+                  focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
+               Nharavi
+               </button>
+               <button onclick="addPartyMember('Opal')" type="button" 
+                  class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 
+                  focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
+               Opal
+               </button>
+               <button onclick="addPartyMember('Scylla')" type="button" 
+                  class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 
+                  focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
+               Scylla
+               </button>
+               <button onclick="addPartyMember('Zion')" type="button" 
+                  class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 
+                  focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
+               Zion
+               </button>
+               <button onclick="addPartyMember('Zuriel')" type="button" 
+                  class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 
+                  focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
+               Zuriel
+               </button>
+               <button onclick="addPartyMember('Ethris')" type="button" 
+                  class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 
+                  focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
+               Ethris
+               </button>
             </div>
             <div class="mt-3 flex flex-wrap gap-2">
-              <table class="w-full text-sm mb-2" id="initiativeTable">
-               <thead class="bg-gray-900 sticky top-0">
-                  <tr class="text-left border-b border-gray-600">
-                    <th class="py-2 px-3 text-left text-sm font-semibold text-neutral-200">Personaje</th>
-                    <th class="py-2 px-3 text-left text-sm font-semibold text-neutral-200">Iniciativa</th>
-                  </tr>
-               </thead>
-               <tbody class="divide-y divide-gray-700/60 border-b border-gray-700/60">
-                  <tr>
-                     <td contenteditable data-placeholder="-" class="border-b border-gray-700/60 px-2 max-w-[100px] min-h-[36px] align-top whitespace-nowrap overflow-hidden truncate"></td>
-                     <td contenteditable data-placeholder="-" class="border-b border-gray-700/60 px-2 max-w-[100px] min-h-[36px] align-top whitespace-nowrap overflow-hidden truncate"></td>
-                  </tr>
-               </tbody>
-            </table>
+               <table class="w-full text-sm mb-2" id="initiativeTable">
+                  <thead class="bg-gray-900 sticky top-0">
+                     <tr class="text-left border-b border-gray-600">
+                        <th class="py-2 px-3 text-left text-sm font-semibold text-neutral-200">Personaje</th>
+                        <th class="py-2 px-3 text-left text-sm font-semibold text-neutral-200">Iniciativa</th>
+                     </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-700/60 border-b border-gray-700/60">
+                     <tr>
+                        <td contenteditable data-placeholder="-" class="border-b border-gray-700/60 px-2 max-w-[100px] min-h-[36px] align-top whitespace-nowrap overflow-hidden truncate"></td>
+                        <td contenteditable data-placeholder="-" class="border-b border-gray-700/60 px-2 max-w-[100px] min-h-[36px] align-top whitespace-nowrap overflow-hidden truncate"></td>
+                     </tr>
+                  </tbody>
+               </table>
             </div>
-
          </section>
          <!-- ========================= -->
          <!-- TRACKER PRINCIPAL -->
@@ -138,11 +136,10 @@
             <div class="flex justify-between items-center mb-2">
                <h2 class="text-lg font-bold">Combat Tracker</h2>
                <button onclick="addRound()" type="button" 
-               class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 
-               focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
-                Ronda 🡅
-              </button>
-
+                  class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 
+                  focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
+               Ronda 🡅
+               </button>
             </div>
             <table class="w-full text-sm border-collapse table-auto" id="trackerTable">
                <thead class="bg-gray-900 sticky top-0">
@@ -329,19 +326,18 @@
          }
       </script>
       <Script>
-          function addPartyMember(name) {
-          clearEmptyInitiativeRowIfNeeded();
-
-          if (name === "Party") {
-            const mainParty = ["Kora", "Nharavi", "Opal", "Scylla", "Zion"];
-            mainParty.forEach(member => addSingleMember(member));
-            return;
-          }
-
-          addSingleMember(name);
-        }
+         function addPartyMember(name) {
+         clearEmptyInitiativeRowIfNeeded();
+         
+         if (name === "Party") {
+           const mainParty = ["Kora", "Nharavi", "Opal", "Scylla", "Zion"];
+           mainParty.forEach(member => addSingleMember(member));
+           return;
+         }
+         
+         addSingleMember(name);
+         }
       </Script>
-
       <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
    </body>
 </html>
