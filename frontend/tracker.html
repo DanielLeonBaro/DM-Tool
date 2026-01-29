@@ -17,6 +17,23 @@
       </script>
       <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
       <style>
+         .extra-table [contenteditable][data-placeholder]:empty::before {
+         content: attr(data-placeholder);
+         color: #6b7280;
+         pointer-events: none;
+         }
+         .extra-table th:hover,
+         .extra-table td:hover {
+         background-color: rgba(255,255,255,0.03);
+         }
+         .extra-table th:focus,
+         .extra-table td:focus {
+         background-color: rgba(255,255,255,0.06);
+         outline: none;
+         }
+         #trackerTable tbody tr:hover td {
+         background-color: rgba(59, 130, 246, 0.12);
+         }
          .party-primary {
          background-color: #2563eb;
          color: white;
@@ -57,8 +74,8 @@
          <!-- TABLA DE INICIATIVA -->
          <!-- ========================= -->
          <section class="bg-gray-800 p-4 rounded-xl">
-            <h2 class="text-lg font-bold mb-2">Initiative</h2>
-            <div class="flex gap-2">
+            <div class="flex justify-between items-center mb-3">
+               <h2 class="text-lg font-bold mb-2">Initiative</h2>
                <button onclick="addInitiativeRow()" type="button" 
                   class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 
                   focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-xl text-sm px-4 py-2.5 text-center leading-5">
@@ -122,8 +139,8 @@
                   </thead>
                   <tbody class="divide-y divide-gray-700/60 border-b border-gray-700/60">
                      <tr>
-                        <td contenteditable data-placeholder="-" class="border-b border-gray-700/60 px-2 max-w-[100px] min-h-[36px] align-top whitespace-nowrap overflow-hidden truncate"></td>
-                        <td contenteditable data-placeholder="-" class="border-b border-gray-700/60 px-2 max-w-[100px] min-h-[36px] align-top whitespace-nowrap overflow-hidden truncate"></td>
+                        <td contenteditable="true" data-placeholder="-" class="px-3 py-2 min-h-[36px] align-top"></td>
+                        <td contenteditable="true" data-placeholder="-" class="px-3 py-2 min-h-[36px] align-top"></td>
                      </tr>
                   </tbody>
                </table>
@@ -132,7 +149,7 @@
          <!-- ========================= -->
          <!-- TRACKER PRINCIPAL -->
          <!-- ========================= -->
-         <section class="bg-gray-800 p-4 rounded lg:col-span-2 overflow-x-auto">
+         <section class="bg-gray-800 p-4 rounded-xl lg:col-span-2 overflow-x-auto">
             <div class="flex justify-between items-center mb-2">
                <h2 class="text-lg font-bold">Combat Tracker</h2>
                <button onclick="addRound()" type="button" 
@@ -145,14 +162,39 @@
                <thead class="bg-gray-900 sticky top-0">
                   <tr class="border-b border-gray-600">
                      <th class="py-2 px-3 text-left text-sm font-semibold text-neutral-200">Personaje</th>
-                     <th class="py-2 px-3 text-left text-sm font-semibold text-neutral-200">Daño acumulado</th>
-                     <th class="py-2 px-3 text-left text-sm font-semibold text-neutral-200">Ronda 1</th>
+                     <th class="py-2 px-3 text-left text-sm font-semibold text-neutral-200">Daño</th>
+                     <th class="py-2 px-3 text-left text-sm font-semibold text-neutral-200">Condición</th>
+                     <th class="relative py-2 px-3 text-left text-sm font-semibold text-neutral-200">
+                        <span>Ronda 1</span>
+                        <button
+                           class="absolute top-1 right-1 text-xs text-neutral-400 hover:text-red-400"
+                           onclick="removeRound(this)">
+                        −
+                        </button>
+                     </th>
                   </tr>
                </thead>
                <tbody class="divide-y divide-gray-700/60 border-b border-gray-700/60">
                   <!-- Se llena SOLO al enviar iniciativa -->
                </tbody>
             </table>
+         </section>
+         <!-- ========================= -->
+         <!-- TABLAS ADICIONALES -->
+         <!-- ========================= -->
+         <section class="bg-gray-800 p-4 rounded-xl mt-4">
+            <div class="flex justify-between items-center mb-3">
+               <h2 class="text-lg font-bold">Tablas adicionales</h2>
+               <button
+                  onclick="addExtraTable()"
+                  type="button"
+                  class="text-white bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-700
+                  hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-emerald-300
+                  font-medium rounded-xl text-sm px-4 py-2.5">
+               + Añadir tabla
+               </button>
+            </div>
+            <div id="extraTables" class="space-y-4"></div>
          </section>
       </main>
       <!-- ========================= -->
@@ -210,7 +252,8 @@
                  </span>
                </div>
              </td>
-               <td contenteditable data-placeholder="-" class="border-b border-gray-700/60 min-h-[36px] align-top px-2 py-1 max-w-[100px] whitespace-nowrap overflow-hidden truncate"></td>
+             <td contenteditable data-placeholder="-" class="border-b border-gray-700/60 px-2 py-1 min-h-[36px]"></td>
+             <td contenteditable data-placeholder="-" class="border-b border-gray-700/60 min-h-[36px] align-top px-2 py-1 max-w-[100px] whitespace-nowrap overflow-hidden truncate"></td>
              `;
          
              trackerBody.appendChild(tr);
@@ -222,8 +265,16 @@
          
           const headerRow = document.querySelector("#trackerTable thead tr");
           const th = document.createElement("th");
-          th.className = "py-2 px-3 text-left text-sm font-semibold text-neutral-200";
-          th.innerText = `Ronda ${roundCount}`;
+          th.className = "relative py-2 px-3 text-left text-sm font-semibold text-neutral-200";
+          th.innerHTML = `
+            <span>Ronda ${roundCount}</span>
+            <button
+              class="absolute top-1 right-1 text-xs text-neutral-400 hover:text-red-400"
+              onclick="removeRound(this)">
+              −
+            </button>
+          `;
+          
           headerRow.appendChild(th);
          
           const rows = document.querySelectorAll("#trackerTable tbody tr");
@@ -234,9 +285,22 @@
             td.className =
               "border-b border-gray-700/60 min-h-[36px] align-top px-2 py-1 max-w-[100px] whitespace-nowrap overflow-hidden truncate";
             row.appendChild(td);
-          });
+          });         
          }
          
+         
+         function removeRound(button) {
+          const th = button.closest("th");
+          const index = [...th.parentNode.children].indexOf(th);
+         
+          // borrar header
+          th.remove();
+         
+          // borrar todas las celdas de esa columna
+          document.querySelectorAll("#trackerTable tbody tr").forEach(row => {
+            row.children[index].remove();
+          });
+         }
       </script>
       <script>
          fetch("/components/navbar.html")
@@ -293,6 +357,7 @@
       </script>
       <script>
          function addSingleMember(name) {
+          if (initiativeHasName(name)) return;
          const tbody = document.querySelector("#initiativeTable tbody");
          
          const row = document.createElement("tr");
@@ -308,6 +373,13 @@
          `;
          
          tbody.appendChild(row);
+         }
+         
+         function initiativeHasName(name) {
+         const rows = document.querySelectorAll("#initiativeTable tbody tr");
+         return [...rows].some(row =>
+         row.cells[0].innerText.trim().toLowerCase() === name.toLowerCase()
+         );
          }
       </script>
       <script>
@@ -338,6 +410,104 @@
          addSingleMember(name);
          }
       </Script>
+      <script>
+         let extraTableCount = 0;
+         
+         function addExtraTable() {
+           let cols = prompt("¿Cuántas columnas tendrá la tabla?", "3");
+           cols = parseInt(cols);
+         
+           if (isNaN(cols) || cols < 1) return;
+         
+           extraTableCount++;
+         
+           const container = document.getElementById("extraTables");
+           const wrapper = document.createElement("div");
+         
+           wrapper.className =
+             "bg-gray-900 rounded-xl p-3 border border-gray-700 extra-table";
+         
+           wrapper.innerHTML = `
+             <div class="flex justify-between items-center mb-2">
+               <div
+                 contenteditable
+                 data-placeholder="Nombre de la tabla"
+                 class="font-semibold text-neutral-200 outline-none">
+                 Tabla ${extraTableCount}
+               </div>
+         
+               <button
+                 onclick="this.closest('.extra-table').remove()"
+                 class="text-sm text-red-400 hover:text-red-300">
+                 ✕
+               </button>
+             </div>
+         
+             <table class="w-full text-sm border-collapse">
+               <thead class="bg-gray-800">
+                 <tr>
+                   ${createExtraHeaders(cols)}
+                 </tr>
+               </thead>
+               <tbody class="divide-y divide-gray-700/60">
+                 ${createExtraRow(cols)}
+               </tbody>
+             </table>
+         
+             <div class="mt-2 flex gap-3">
+               <button
+                 onclick="addExtraRow(this)"
+                 class="text-xs text-emerald-400 hover:text-emerald-300">
+                 ➕ Añadir fila
+               </button>
+             </div>
+           `;
+         
+           container.appendChild(wrapper);
+         }
+         
+         function createExtraHeaders(count) {
+           let html = "";
+           for (let i = 1; i <= count; i++) {
+             html += `
+               <th
+                 contenteditable
+                 data-placeholder="Col ${i}"
+                 class="px-3 py-2 text-left font-semibold outline-none">
+                 Col ${i}
+               </th>
+             `;
+           }
+           return html;
+         }
+         
+         function createExtraRow(count) {
+           let html = "<tr>";
+           for (let i = 0; i < count; i++) {
+             html += `
+               <td
+                 contenteditable="true"
+                 data-placeholder="-"
+                 class="px-3 py-2 min-h-[36px] align-top"
+               ></td>
+             `;
+           }
+           html += "</tr>";
+           return html;
+         }
+         
+         function addExtraRow(button) {
+           const table = button
+             .closest(".extra-table")
+             .querySelector("tbody");
+         
+           const colCount =
+             button.closest(".extra-table")
+               .querySelectorAll("thead th").length;
+         
+           table.insertAdjacentHTML("beforeend", createExtraRow(colCount));
+         }
+      </script>
       <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
    </body>
 </html>
