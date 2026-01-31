@@ -1,0 +1,125 @@
+{
+  "id": 1,
+  "savedAt": "2026-01-31T06:30:06.429Z",
+  "tracker": {
+    "rounds": [
+      "Personaje",
+      "Daño",
+      "Condición",
+      "Ronda 1\n−",
+      "Ronda 2\n−"
+    ],
+    "rows": [
+      [
+        {
+          "text": "Ethris",
+          "log": null
+        },
+        {
+          "text": "−\n+\n+1 = [1]",
+          "log": "1"
+        },
+        {
+          "text": "Paralyzed",
+          "log": null
+        },
+        {
+          "text": "Golpeó",
+          "log": null
+        },
+        {
+          "text": "Esquivó",
+          "log": null
+        }
+      ],
+      [
+        {
+          "text": "Kora",
+          "log": null
+        },
+        {
+          "text": "−\n+\n+2 = [2]",
+          "log": "2"
+        },
+        {
+          "text": "",
+          "log": null
+        },
+        {
+          "text": "Esquivó",
+          "log": null
+        },
+        {
+          "text": "Mató",
+          "log": null
+        }
+      ],
+      [
+        {
+          "text": "Nharavi",
+          "log": null
+        },
+        {
+          "text": "−\n+\n+3 -1 = [2]",
+          "log": "3,-1"
+        },
+        {
+          "text": "",
+          "log": null
+        },
+        {
+          "text": "Se movió y pegó",
+          "log": null
+        },
+        {
+          "text": "",
+          "log": null
+        }
+      ],
+      [
+        {
+          "text": "Scylla",
+          "log": null
+        },
+        {
+          "text": "−\n+\n+5 = [5]",
+          "log": "5"
+        },
+        {
+          "text": "Grappled",
+          "log": null
+        },
+        {
+          "text": "Golpeó",
+          "log": null
+        },
+        {
+          "text": "",
+          "log": null
+        }
+      ],
+      [
+        {
+          "text": "Zion",
+          "log": null
+        },
+        {
+          "text": "−\n+\n-1 = [-1]",
+          "log": "-1"
+        },
+        {
+          "text": "",
+          "log": null
+        },
+        {
+          "text": "Golpeó",
+          "log": null
+        },
+        {
+          "text": "",
+          "log": null
+        }
+      ]
+    ]
+  }
+}
