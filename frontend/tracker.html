@@ -529,33 +529,102 @@
            table.insertAdjacentHTML("beforeend", createExtraRow(colCount));
          }
       </script>
-      <script>
+<script>
 function serializeTracker() {
   const tracker = {
-    rounds: [],
-    rows: []
+    initiative: {},
+    tracker: {
+      damageLog: {},
+      condition: {}
+    }
   };
 
-  // headers
-  document.querySelectorAll("#trackerTable thead th").forEach(th => {
-    tracker.rounds.push(th.innerText.trim());
+  const headers = [...document.querySelectorAll("#trackerTable thead th")]
+    .map(th => th.innerText.trim());
+
+  const roundHeaders = headers.filter(h => h.startsWith("Ronda"));
+
+  // inicializar rondas
+  roundHeaders.forEach(r => {
+    tracker.tracker[r.toLowerCase().replace(" ", "")] = {};
   });
 
-  // filas
   document.querySelectorAll("#trackerTable tbody tr").forEach(tr => {
-    const row = [];
-    tr.querySelectorAll("td").forEach(td => {
-      row.push({
-        text: td.innerText,
-        log: td.dataset.log || null
-      });
+    const cells = tr.querySelectorAll("td");
+    const name = cells[0].innerText.trim();
+
+    if (!name) return;
+
+    // DAMAGE
+    const logRaw = cells[1].dataset.log || "";
+    const logArr = logRaw
+      ? logRaw.split(",").map(Number)
+      : [];
+
+    const expression = logArr.map(v => Math.abs(v)).join("+");
+    const total = logArr.reduce((a, b) => a + b, 0);
+
+    tracker.tracker.damageLog[name] = {
+      expression,
+      total
+    };
+
+    // CONDITION
+    tracker.tracker.condition[name] = cells[2].innerText.trim();
+
+    // ROUNDS
+    roundHeaders.forEach((r, idx) => {
+      const key = r.toLowerCase().replace(" ", "");
+      tracker.tracker[key][name] = cells[3 + idx]?.innerText.trim() || "";
     });
-    tracker.rows.push(row);
   });
+
+  // INITIATIVE
+  document.querySelectorAll("#initiativeTable tbody tr").forEach(tr => {
+    const name = tr.cells[0].innerText.trim();
+    const init = parseInt(tr.cells[1].innerText.trim());
+    if (name && !isNaN(init)) {
+      tracker.initiative[name] = init;
+    }
+  });
+
+  // EXTRA TABLES
+  tracker.additionalTables = serializeExtraTables();
 
   return tracker;
 }
 </script>
+<script>
+function serializeExtraTables() {
+  const tables = {};
+
+  document.querySelectorAll(".extra-table").forEach(table => {
+    const tableName =
+      table.querySelector("[contenteditable]").innerText.trim();
+
+    const headers = [...table.querySelectorAll("thead th")]
+      .map(th => th.innerText.trim());
+
+    tables[tableName] = {};
+
+    table.querySelectorAll("tbody tr").forEach(tr => {
+      const cells = tr.querySelectorAll("td");
+      const rowKey = cells[0]?.innerText.trim();
+      if (!rowKey) return;
+
+      tables[tableName][rowKey] = {};
+
+      headers.slice(1).forEach((h, i) => {
+        tables[tableName][rowKey][h] =
+          cells[i + 1]?.innerText.trim() || "";
+      });
+    });
+  });
+
+  return tables;
+}
+</script>
+
 <script>
 async function saveTracker() {
   const data = serializeTracker();
@@ -576,9 +645,7 @@ async function saveTracker() {
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        tracker: data
-      })
+      body: JSON.stringify(serializeTracker())
     }
   );
 

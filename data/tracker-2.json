@@ -1,0 +1,52 @@
+{
+  "id": 2,
+  "savedAt": "2026-02-02T04:37:29.548Z",
+  "initiative": {
+    "Scylla": 5,
+    "Zion": 25,
+    "Ethris": 12
+  },
+  "tracker": {
+    "damageLog": {
+      "Zion": {
+        "expression": "",
+        "total": 0
+      },
+      "Ethris": {
+        "expression": "25+30+50",
+        "total": 5
+      },
+      "Scylla": {
+        "expression": "",
+        "total": 0
+      }
+    },
+    "condition": {
+      "Zion": "",
+      "Ethris": "Grappled",
+      "Scylla": ""
+    },
+    "ronda1\n−": {
+      "Zion": "Se oculta y pega 25 a Ethris",
+      "Ethris": "Se mueve",
+      "Scylla": "Tsunami 30 a Ethris"
+    },
+    "ronda2\n−": {
+      "Zion": "Cura 50 a Ehtis",
+      "Ethris": "",
+      "Scylla": ""
+    }
+  },
+  "additionalTables": {
+    "Experiencia": {
+      "Combate": {
+        "Puntos": "5000",
+        "Target": "Todos"
+      }
+    },
+    "Loot": {
+      "Oro 200g": {},
+      "Libro rojo": {}
+    }
+  }
+}
