@@ -1,25 +1,26 @@
 {
   "name": "dm-tool",
-  "version": "1.0.0",
-  "description": "Small DM Tool I created for personal use on my D&amp;D Campaigns",
-  "main": "index.js",
+  "version": "2.0.0",
+  "private": true,
+  "description": "A local-first tabletop campaign workspace.",
+  "main": "backend/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run build:css",
+    "build:css": "tailwindcss -c tailwind.config.js -i frontend/input.css -o frontend/tailwind.css --minify",
+    "start": "node backend/server.js",
+    "dev": "node --watch backend/server.js",
+    "check": "node --check backend/server.js && node --check frontend/app.js",
+    "test": "npm run check"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DanielLeonBaro/DM-Tool.git"
+  "engines": {
+    "node": ">=18"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/DanielLeonBaro/DM-Tool/issues"
-  },
-  "homepage": "https://github.com/DanielLeonBaro/DM-Tool#readme",
   "dependencies": {
-    "cors": "^2.8.6",
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
   }
 }

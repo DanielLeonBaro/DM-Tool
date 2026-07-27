@@ -7,6 +7,9 @@ __pycache__/
 # Virtual environment
 .venv/
 
+# Dependencies
+node_modules/
+
 # OS / editor
 .vscode/
 .DS_Store

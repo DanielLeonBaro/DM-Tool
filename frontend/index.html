@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" class="h-full bg-[#0b0c0f]">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0c0f">
+  <meta name="description" content="A local-first tabletop campaign workspace.">
+  <title>DM Tool</title>
+  <link rel="stylesheet" href="/tailwind.css">
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body class="h-full overflow-hidden bg-ink text-stone-200 antialiased">
+  <div class="flex h-full">
+    <aside class="hidden w-64 shrink-0 flex-col border-r border-white/[.07] bg-[#0e0f12] p-4 lg:flex">
+      <a class="mb-8 flex items-center gap-3 px-2 py-2" href="#combat" aria-label="DM Tool">
+        <span class="brand-mark">D</span>
+        <span>
+          <span class="block text-sm font-semibold tracking-wide text-parchment">DM Tool</span>
+          <span class="block text-[11px] text-stone-500">Campaign workspace</span>
+        </span>
+      </a>
+
+      <nav class="space-y-1" aria-label="Main navigation">
+        <a class="nav-item" data-section-link="combat" href="#combat"></a>
+        <a class="nav-item" data-section-link="wiki" href="#wiki"></a>
+        <a class="nav-item" data-section-link="music" href="#music"></a>
+      </nav>
+
+      <div class="mt-auto">
+        <div class="mb-3 rounded-xl border border-white/[.06] bg-white/[.025] p-3">
+          <p class="text-[11px] font-medium uppercase tracking-[.16em] text-stone-500">Storage</p>
+          <p class="mt-1.5 text-xs leading-5 text-stone-400">Saved automatically on this device.</p>
+        </div>
+        <button class="nav-item w-full" data-action="toggle-menu"></button>
+      </div>
+    </aside>
+
+    <div class="relative flex min-w-0 flex-1 flex-col">
+      <header class="flex h-[73px] shrink-0 items-center justify-between border-b border-white/[.07] bg-ink/90 px-4 backdrop-blur-xl sm:px-6 lg:px-8">
+        <div class="min-w-0">
+          <div class="flex items-center gap-2 lg:hidden">
+            <span class="brand-mark brand-mark-small">D</span>
+            <span class="text-xs font-semibold tracking-wide text-parchment">DM Tool</span>
+          </div>
+          <h1 id="page-title" class="hidden truncate text-lg font-semibold text-parchment lg:block"></h1>
+          <p id="page-subtitle" class="hidden truncate text-xs text-stone-500 lg:block"></p>
+        </div>
+        <div id="header-actions" class="flex items-center gap-2"></div>
+      </header>
+
+      <main id="app" class="min-h-0 flex-1 overflow-y-auto px-4 py-5 sm:px-6 lg:px-8 lg:py-7"></main>
+
+      <nav class="grid h-16 shrink-0 grid-cols-3 border-t border-white/[.08] bg-[#0e0f12]/95 px-2 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden" aria-label="Mobile navigation">
+        <a class="mobile-nav" data-section-link="combat" href="#combat"></a>
+        <a class="mobile-nav" data-section-link="wiki" href="#wiki"></a>
+        <a class="mobile-nav" data-section-link="music" href="#music"></a>
+      </nav>
+
+      <div id="app-menu" class="absolute right-4 top-16 z-50 hidden w-52 overflow-hidden rounded-xl border border-white/10 bg-[#17191e] p-1.5 shadow-2xl">
+        <button class="menu-item" data-action="export-data"></button>
+        <button class="menu-item" data-action="import-data"></button>
+        <div class="my-1 border-t border-white/[.07]"></div>
+        <button class="menu-item text-red-300 hover:text-red-200" data-action="reset-data"></button>
+      </div>
+      <input id="import-file" class="hidden" type="file" accept="application/json">
+    </div>
+  </div>
+
+  <div id="modal-root"></div>
+  <div id="toast" class="pointer-events-none fixed bottom-20 left-1/2 z-[70] -translate-x-1/2 translate-y-3 rounded-lg border border-white/10 bg-[#202229] px-3.5 py-2 text-xs font-medium text-stone-200 opacity-0 shadow-xl transition-all duration-200 lg:bottom-6"></div>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>
